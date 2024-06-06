@@ -1,0 +1,256 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1717413438284-1
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 1
+            sequenceName: category_id_seq
+            startValue: 1
+  - changeSet:
+      id: 1717413438284-2
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 1
+            sequenceName: task_id_seq
+            startValue: 1
+  - changeSet:
+      id: 1717413438284-3
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 1
+            sequenceName: user_id_seq
+            startValue: 1
+  - changeSet:
+      id: 1717413438284-4
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 1
+            sequenceName: user_role_id_seq
+            startValue: 1
+  - changeSet:
+      id: 1717413438284-5
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_category
+                  name: category_id
+                  type: BIGINT
+              - column:
+                  name: category_name
+                  type: VARCHAR(255)
+              - column:
+                  name: user_id
+                  type: BIGINT
+            tableName: category
+  - changeSet:
+      id: 1717413438284-6
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: category_category_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: tasks_task_id
+                  type: BIGINT
+            tableName: category_tasks
+  - changeSet:
+      id: 1717413438284-7
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_task
+                  name: task_id
+                  type: BIGINT
+              - column:
+                  name: date_create
+                  type: DATE
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: deadline
+                  type: DATE
+              - column:
+                  name: update_date
+                  type: DATE
+              - column:
+                  name: completed
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: importance
+                  type: INT
+              - column:
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: category_id
+                  type: BIGINT
+            tableName: task
+  - changeSet:
+      id: 1717413438284-8
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_userroles
+                  name: user_role_id
+                  type: BIGINT
+              - column:
+                  name: user_authority
+                  type: SMALLINT
+              - column:
+                  name: user_id
+                  type: BIGINT
+            tableName: user_roles
+  - changeSet:
+      id: 1717413438284-9
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_users
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: expired
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: locked
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: enabled
+                  type: BOOLEAN
+            tableName: users
+  - changeSet:
+      id: 1717413438284-10
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: tasks_task_id
+            constraintName: uc_category_tasks_tasks_taskid
+            tableName: category_tasks
+  - changeSet:
+      id: 1717413438284-11
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: category
+            constraintName: FK_CATEGORY_ON_USERID
+            onDelete: CASCADE
+            referencedColumnNames: user_id
+            referencedTableName: users
+  - changeSet:
+      id: 1717413438284-12
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: category_id
+            baseTableName: task
+            constraintName: FK_TASK_ON_CATEGORYID
+            onDelete: CASCADE
+            referencedColumnNames: category_id
+            referencedTableName: category
+  - changeSet:
+      id: 1717413438284-13
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: task
+            constraintName: FK_TASK_ON_USERID
+            onDelete: CASCADE
+            referencedColumnNames: user_id
+            referencedTableName: users
+  - changeSet:
+      id: 1717413438284-14
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_roles
+            constraintName: FK_USERROLES_ON_USERID
+            referencedColumnNames: user_id
+            referencedTableName: users
+  - changeSet:
+      id: 1717413438284-15
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: category_category_id
+            baseTableName: category_tasks
+            constraintName: fk_cattas_on_category
+            referencedColumnNames: category_id
+            referencedTableName: category
+  - changeSet:
+      id: 1717413438284-16
+      author: whyno (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: tasks_task_id
+            baseTableName: category_tasks
+            constraintName: fk_cattas_on_task
+            referencedColumnNames: task_id
+            referencedTableName: task
+
